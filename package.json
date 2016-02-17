@@ -9,9 +9,6 @@
       "email": "its@jiajian.me"
     }
   ],
-  "dependencies": {
-    "lame": "1.0.3"
-  },
   "devDependencies": {},
   "homepage": "http://github.com/vincentsaluzzo/node-microphone",
   "keywords": [
