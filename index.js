@@ -7,13 +7,13 @@ var ps = null;
 var audio = new PassThrough;
 var info = new PassThrough;
 
-var start = function(options) {
-    options = options || {};
-    
+var start = function(options) {    
     if(ps == null) {
         ps = isMacOrWin
-        ? spawn('sox', ['-d', '-t', 's16', '-r', '44100', '-c', '2', '-'])
-        : spawn('arecord', ['-D', 'plughw:0,0', '-f', 'cd']);
+        // Must use -q option to hide the sox progress, otherwise the info stream
+        // is clogged and somehow stops the audio stream after 84 seconds.
+        ? spawn('rec', options || ['-t', 's16', '-r', '44100', '-c', '2', '-q', '-'])
+        : spawn('arecord', options || ['-D', 'plughw:0,0', '-f', 'cd']);
 
         ps.stdout.pipe(audio);
         ps.stderr.pipe(info);
